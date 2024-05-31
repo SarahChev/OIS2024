@@ -1,0 +1,33 @@
+# Installation des packages nécessaires
+install.packages("ggplot2")
+
+# Chargement de la bibliothèque ggplot2
+library(ggplot2)
+
+# Simulation des données de croissance des arbres
+set.seed(123) # Pour la reproductibilité
+time <- seq(0, 20, by = 0.5) # Temps en années
+initial_height <- 1 # Hauteur initiale en mètres
+growth_rate <- 0.5
+
+# Modèle de croissance logarithmique
+height <- initial_height * log1p(growth_rate * time)
+height <- jitter(height, amount = 0.1) # Ajouter du bruit pour rendre les données plus réalistes
+
+# Création d'un data frame
+data <- data.frame(Time = time, Height = height)
+
+# Création du graphique avec ggplot2
+p <- ggplot(data, aes(x = Time, y = Height)) +
+  geom_line(color = 'forestgreen', size = 1) +
+  geom_point(color = 'brown', size = 2, alpha = 0.6) +
+  labs(
+    title = "Croissance des arbres au fil du temps",
+    x = "Temps (années)",
+    y = "Hauteur (mètres)"
+  ) +
+  theme_minimal()
+
+# Affichage du graphique
+print(p)
+
